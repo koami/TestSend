@@ -34,8 +34,8 @@ npx prisma migrate dev --name init
 ## Objectives
 
 1. The restful APIs is build using Node and Express
-2. The code is writen in a clean, structured, readable and maintainable way also as DRY
-3. The unit tests are writen using mocha
+2. The code is written in a clean, structured, readable and maintainable way also as DRY
+3. The unit tests are written using mocha
 4. The entities structure and relationships is done with prisma
 5. We didn't built auth and users as it is just a part of a system
 
