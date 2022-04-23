@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Shipment {
+  id        Int      @id @default(autoincrement())
+  origin      String
+  destination      String
+  description      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  containers     Container[]
+}
+
+model Container {
+  id          Int      @id @default(autoincrement())
+  name       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  shipment        Shipment     @relation(fields: [shipmentId], references: [id])
+  shipmentId      Int
+  trackingSteps     TrackingStep[]
+}
+
+model TrackingStep {
+  id          Int      @id @default(autoincrement())
+  name       String
+  completedAt DateTime? //"2022-01-17T08:44:29.999Z" format
+  status     TrackingStepStatus @default(NOT_STARTED)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  container        Container     @relation(fields: [containerId], references: [id])
+  containerId      Int
+}
+
+enum TrackingStepStatus {
+  NOT_STARTED
+  IN_PROGRESS 
+  COMPLETE
+}
